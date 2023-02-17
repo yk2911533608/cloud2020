@@ -40,8 +40,7 @@ public class PaymentController
     }
 
     @GetMapping(value = "/payment/get/{id}")
-    public CommonResult<Payment> getPaymentById(@PathVariable("id") Long id)
-    {
+    public CommonResult<Payment> getPaymentById(@PathVariable("id") Long id) throws InterruptedException {
         Payment payment = paymentService.getPaymentById(id);
         log.info("*****查询结果:{}",payment);
         if (payment != null) {
@@ -49,6 +48,11 @@ public class PaymentController
         }else{
             return new CommonResult(444,"没有对应记录,查询ID: "+id,null);
         }
+    }
+
+    @GetMapping(value = "/payment/get/lb")
+    public String getPaymentBylb() {
+        return serverPort;
     }
 }
  
